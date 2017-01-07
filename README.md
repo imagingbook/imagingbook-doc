@@ -18,6 +18,6 @@ View this site at [https://imagingbook.github.io/imagingbook-doc/](https://imagi
 ## Additional Resources
 * **Main book site:** [www.imagingbook.com](http://imagingbook.com)
 * **Public source code repository:** [bitbucket.org/imagingbook/imagingbook-public](https://bitbucket.org/imagingbook/imagingbook-public)
-* **Tutorial &ndash; Writing Image Plugins (by W. Bayler):** [pdf](./imagej-tutorial/tutorial171.pdf), [zip](./imagej-tutorial/tutorial171.zip)
+* **Tutorial &ndash; Writing Image Plugins (by W. Bayler):** [pdf](./imagej-tutorial/tutorial171.pdf), [zip](./imagej-tutorial/plugins171.zip)
 
 ![cover large](img/cover_en_600.png) 
