@@ -16,8 +16,8 @@ View this site at [https://imagingbook.github.io/imagingbook-doc/](https://imagi
 * [**imagingbook_plugins_de3**](javadoc/imagingbook_plugins_de3/index.html): German 3rd ed., 2015
 
 ## Additional Resources
-* **Main book site:** [www.imagingbook.com](http://imagingbook.com)
-* **Public source code repository:** [bitbucket.org/imagingbook/imagingbook-public](https://bitbucket.org/imagingbook/imagingbook-public)
-* **Tutorial &ndash; Writing Image Plugins (by W. Bayler):** [pdf](./imagej-tutorial/tutorial171.pdf), [zip](./imagej-tutorial/plugins171.zip)
+* **Main book site**: [www.imagingbook.com](http://imagingbook.com)
+* **Public source code repository**: [bitbucket.org/imagingbook/imagingbook-public](https://bitbucket.org/imagingbook/imagingbook-public)
+* **Tutorial &ndash; Writing Image Plugins** (by W. Bayler): [pdf](./imagej-tutorial/tutorial171.pdf), [zip](./imagej-tutorial/plugins171.zip)
 
 ![cover large](img/cover_en_600.png) 
