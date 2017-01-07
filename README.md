@@ -1,4 +1,4 @@
-# ImagingBook Documentation Home2
+# ImagingBook Documentation Home
 
 View this site at [https://imagingbook.github.io/imagingbook-doc/](https://imagingbook.github.io/imagingbook-doc/)
 
