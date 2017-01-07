@@ -1,1 +1,0 @@
-Writing ImageJ Plugins — A Tutorial by Werner Bailer.
