@@ -19,4 +19,4 @@ View this site at [https://imagingbook.github.io/imagingbook-doc/](https://imagi
 * **Public source code repository:** [bitbucket.org/imagingbook/imagingbook-public](https://bitbucket.org/imagingbook/imagingbook-public)
 * **Main book site:** [www.imagingbook.com](http://imagingbook.com)
 
-![cover large](img/cover_en_large.png) 
+![cover large](img/cover_en_600.png) 
