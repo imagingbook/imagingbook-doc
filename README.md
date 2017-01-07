@@ -1,8 +1,8 @@
-# ImagingBook Documentation Home
+# ImagingBook Documentation Home2
 
 View this site at [https://imagingbook.github.io/imagingbook-doc/](https://imagingbook.github.io/imagingbook-doc/)
 
-## JavaDoc Pages
+## JavaDoc Pages 
 
 ### Common Library
 * [**imagingbook-common**](javadoc/imagingbook-common/index.html)
