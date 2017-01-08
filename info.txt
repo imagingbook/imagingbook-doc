@@ -1,2 +1,2 @@
-This repo only holds the material published on the public Gihub pages
+This repo only holds the material published on the public Github pages
 https://imagingbook.github.io/imagingbook-doc/
