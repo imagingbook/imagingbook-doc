@@ -1,3 +1,4 @@
 title: Imagingbook Documentation Home
-description: Support site for Digital Image Processing books by W. Burger & M. Burge
+description: Documentation site for Digital Image Processing books by W. Burger & M. Burge
 theme: jekyll-theme-cayman
+show_downloads: false
