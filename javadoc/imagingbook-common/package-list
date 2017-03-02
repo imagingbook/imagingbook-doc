@@ -22,6 +22,8 @@ imagingbook.pub.fd
 imagingbook.pub.geometry.mappings
 imagingbook.pub.geometry.mappings.linear
 imagingbook.pub.geometry.mappings.nonlinear
+imagingbook.pub.geometry.points
+imagingbook.pub.geometry.points.tests
 imagingbook.pub.histogram
 imagingbook.pub.hough
 imagingbook.pub.lucaskanade

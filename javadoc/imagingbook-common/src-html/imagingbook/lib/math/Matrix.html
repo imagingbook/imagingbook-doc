@@ -695,150 +695,150 @@
 <span class="sourceLineNo">687</span>                return va;<a name="line.687"></a>
 <span class="sourceLineNo">688</span>        }<a name="line.688"></a>
 <span class="sourceLineNo">689</span>        <a name="line.689"></a>
-<span class="sourceLineNo">690</span>        // Determinants --------------------------------------------<a name="line.690"></a>
+<span class="sourceLineNo">690</span>        // Homogeneous coordinates ---------------------------------<a name="line.690"></a>
 <span class="sourceLineNo">691</span>        <a name="line.691"></a>
-<span class="sourceLineNo">692</span>        public static float determinant2x2(final float[][] A) {<a name="line.692"></a>
-<span class="sourceLineNo">693</span>                return A[0][0] * A[1][1] - A[0][1] * A[1][0];<a name="line.693"></a>
-<span class="sourceLineNo">694</span>        }<a name="line.694"></a>
-<span class="sourceLineNo">695</span>        <a name="line.695"></a>
-<span class="sourceLineNo">696</span>        public static double determinant2x2(final double[][] A) {<a name="line.696"></a>
-<span class="sourceLineNo">697</span>                return A[0][0] * A[1][1] - A[0][1] * A[1][0];<a name="line.697"></a>
-<span class="sourceLineNo">698</span>        }<a name="line.698"></a>
-<span class="sourceLineNo">699</span>        <a name="line.699"></a>
-<span class="sourceLineNo">700</span>        public static float determinant3x3(final float[][] A) {<a name="line.700"></a>
-<span class="sourceLineNo">701</span>                return<a name="line.701"></a>
-<span class="sourceLineNo">702</span>                                A[0][0] * A[1][1] * A[2][2] +<a name="line.702"></a>
-<span class="sourceLineNo">703</span>                                A[0][1] * A[1][2] * A[2][0] +<a name="line.703"></a>
-<span class="sourceLineNo">704</span>                                A[0][2] * A[1][0] * A[2][1] -<a name="line.704"></a>
-<span class="sourceLineNo">705</span>                                A[2][0] * A[1][1] * A[0][2] -<a name="line.705"></a>
-<span class="sourceLineNo">706</span>                                A[2][1] * A[1][2] * A[0][0] -<a name="line.706"></a>
-<span class="sourceLineNo">707</span>                                A[2][2] * A[1][0] * A[0][1] ;<a name="line.707"></a>
+<span class="sourceLineNo">692</span>        public static double[] toHomogeneous(double[] cvec) {<a name="line.692"></a>
+<span class="sourceLineNo">693</span>                double[] hvec = new double[cvec.length + 1];<a name="line.693"></a>
+<span class="sourceLineNo">694</span>                for (int i = 0; i &lt; cvec.length; i++) {<a name="line.694"></a>
+<span class="sourceLineNo">695</span>                        hvec[i] = cvec[i];<a name="line.695"></a>
+<span class="sourceLineNo">696</span>                        hvec[hvec.length - 1] = 1;<a name="line.696"></a>
+<span class="sourceLineNo">697</span>                }<a name="line.697"></a>
+<span class="sourceLineNo">698</span>                return hvec;<a name="line.698"></a>
+<span class="sourceLineNo">699</span>        }<a name="line.699"></a>
+<span class="sourceLineNo">700</span>        <a name="line.700"></a>
+<span class="sourceLineNo">701</span>        public static double[] toCartesian(double[] hvec) {<a name="line.701"></a>
+<span class="sourceLineNo">702</span>                double[] cvec = new double[hvec.length - 1];<a name="line.702"></a>
+<span class="sourceLineNo">703</span>                final double s = 1 / hvec[hvec.length - 1];     // TODO: check for zero factor<a name="line.703"></a>
+<span class="sourceLineNo">704</span>                for (int i = 0; i &lt; hvec.length - 1; i++) {<a name="line.704"></a>
+<span class="sourceLineNo">705</span>                        cvec[i] = s * hvec[i];<a name="line.705"></a>
+<span class="sourceLineNo">706</span>                }<a name="line.706"></a>
+<span class="sourceLineNo">707</span>                return cvec;<a name="line.707"></a>
 <span class="sourceLineNo">708</span>        }<a name="line.708"></a>
-<span class="sourceLineNo">709</span><a name="line.709"></a>
-<span class="sourceLineNo">710</span>        public static double determinant3x3(final double[][] A) {<a name="line.710"></a>
-<span class="sourceLineNo">711</span>                return <a name="line.711"></a>
-<span class="sourceLineNo">712</span>                        A[0][0] * A[1][1] * A[2][2] + <a name="line.712"></a>
-<span class="sourceLineNo">713</span>                        A[0][1] * A[1][2] * A[2][0]     + <a name="line.713"></a>
-<span class="sourceLineNo">714</span>                        A[0][2] * A[1][0] * A[2][1] - <a name="line.714"></a>
-<span class="sourceLineNo">715</span>                        A[2][0] * A[1][1] * A[0][2] - <a name="line.715"></a>
-<span class="sourceLineNo">716</span>                        A[2][1] * A[1][2] * A[0][0] - <a name="line.716"></a>
-<span class="sourceLineNo">717</span>                        A[2][2] * A[1][0] * A[0][1] ;<a name="line.717"></a>
+<span class="sourceLineNo">709</span>        <a name="line.709"></a>
+<span class="sourceLineNo">710</span>        // Determinants --------------------------------------------<a name="line.710"></a>
+<span class="sourceLineNo">711</span>        <a name="line.711"></a>
+<span class="sourceLineNo">712</span>        public static float determinant2x2(final float[][] A) {<a name="line.712"></a>
+<span class="sourceLineNo">713</span>                return A[0][0] * A[1][1] - A[0][1] * A[1][0];<a name="line.713"></a>
+<span class="sourceLineNo">714</span>        }<a name="line.714"></a>
+<span class="sourceLineNo">715</span>        <a name="line.715"></a>
+<span class="sourceLineNo">716</span>        public static double determinant2x2(final double[][] A) {<a name="line.716"></a>
+<span class="sourceLineNo">717</span>                return A[0][0] * A[1][1] - A[0][1] * A[1][0];<a name="line.717"></a>
 <span class="sourceLineNo">718</span>        }<a name="line.718"></a>
 <span class="sourceLineNo">719</span>        <a name="line.719"></a>
-<span class="sourceLineNo">720</span>        public static double determinant(final double[][] A) {<a name="line.720"></a>
-<span class="sourceLineNo">721</span>                RealMatrix M = MatrixUtils.createRealMatrix(A);<a name="line.721"></a>
-<span class="sourceLineNo">722</span>                return new LUDecomposition(M).getDeterminant();<a name="line.722"></a>
-<span class="sourceLineNo">723</span>        }<a name="line.723"></a>
-<span class="sourceLineNo">724</span>        <a name="line.724"></a>
-<span class="sourceLineNo">725</span>        // Matrix transposition ---------------------------------------<a name="line.725"></a>
-<span class="sourceLineNo">726</span>        <a name="line.726"></a>
-<span class="sourceLineNo">727</span>        public static float[][] transpose(float[][] A) {<a name="line.727"></a>
-<span class="sourceLineNo">728</span>                final int m = getNumberOfRows(A);<a name="line.728"></a>
-<span class="sourceLineNo">729</span>                final int n = getNumberOfColumns(A);<a name="line.729"></a>
-<span class="sourceLineNo">730</span>                float[][] At = new float[n][m];<a name="line.730"></a>
-<span class="sourceLineNo">731</span>                for (int i = 0; i &lt; m; i++) {<a name="line.731"></a>
-<span class="sourceLineNo">732</span>                        for (int j = 0; j &lt; n; j++) {<a name="line.732"></a>
-<span class="sourceLineNo">733</span>                                At[j][i] = A[i][j];<a name="line.733"></a>
-<span class="sourceLineNo">734</span>                        }<a name="line.734"></a>
-<span class="sourceLineNo">735</span>                }<a name="line.735"></a>
-<span class="sourceLineNo">736</span>                return At;<a name="line.736"></a>
-<span class="sourceLineNo">737</span>        }<a name="line.737"></a>
-<span class="sourceLineNo">738</span>        <a name="line.738"></a>
-<span class="sourceLineNo">739</span>        public static double[][] transpose(double[][] A) {<a name="line.739"></a>
-<span class="sourceLineNo">740</span>                final int m = getNumberOfRows(A);<a name="line.740"></a>
-<span class="sourceLineNo">741</span>                final int n = getNumberOfColumns(A);<a name="line.741"></a>
-<span class="sourceLineNo">742</span>                double[][] At = new double[n][m];<a name="line.742"></a>
-<span class="sourceLineNo">743</span>                for (int i = 0; i &lt; m; i++) {<a name="line.743"></a>
-<span class="sourceLineNo">744</span>                        for (int j = 0; j &lt; n; j++) {<a name="line.744"></a>
-<span class="sourceLineNo">745</span>                                At[j][i] = A[i][j];<a name="line.745"></a>
-<span class="sourceLineNo">746</span>                        }<a name="line.746"></a>
-<span class="sourceLineNo">747</span>                }<a name="line.747"></a>
-<span class="sourceLineNo">748</span>                return At;<a name="line.748"></a>
-<span class="sourceLineNo">749</span>        }<a name="line.749"></a>
-<span class="sourceLineNo">750</span>        <a name="line.750"></a>
-<span class="sourceLineNo">751</span>        // Matrix Froebenius norm ---------------------------------------<a name="line.751"></a>
-<span class="sourceLineNo">752</span>        <a name="line.752"></a>
-<span class="sourceLineNo">753</span>        public static double froebeniusNorm(final double[][] A) {<a name="line.753"></a>
-<span class="sourceLineNo">754</span>                final int m = getNumberOfRows(A);<a name="line.754"></a>
-<span class="sourceLineNo">755</span>                final int n = getNumberOfColumns(A);<a name="line.755"></a>
-<span class="sourceLineNo">756</span>                double s = 0;<a name="line.756"></a>
-<span class="sourceLineNo">757</span>                for (int i = 0; i &lt; m; i++) {<a name="line.757"></a>
-<span class="sourceLineNo">758</span>                        for (int j = 0; j &lt; n; j++) {<a name="line.758"></a>
-<span class="sourceLineNo">759</span>                                s = s + A[i][j] * A[i][j];<a name="line.759"></a>
-<span class="sourceLineNo">760</span>                        }<a name="line.760"></a>
-<span class="sourceLineNo">761</span>                }<a name="line.761"></a>
-<span class="sourceLineNo">762</span>                return Math.sqrt(s);<a name="line.762"></a>
-<span class="sourceLineNo">763</span>        }<a name="line.763"></a>
-<span class="sourceLineNo">764</span>        <a name="line.764"></a>
-<span class="sourceLineNo">765</span>        // Matrix trace ---------------------------------------<a name="line.765"></a>
-<span class="sourceLineNo">766</span>        <a name="line.766"></a>
-<span class="sourceLineNo">767</span>        public static double trace(final double[][] A) {<a name="line.767"></a>
-<span class="sourceLineNo">768</span>                final int m = getNumberOfRows(A);<a name="line.768"></a>
-<span class="sourceLineNo">769</span>                final int n = getNumberOfColumns(A);<a name="line.769"></a>
-<span class="sourceLineNo">770</span>                if (m != n) <a name="line.770"></a>
-<span class="sourceLineNo">771</span>                        throw new IllegalArgumentException("square matrix expected");<a name="line.771"></a>
-<span class="sourceLineNo">772</span>                double s = 0;<a name="line.772"></a>
-<span class="sourceLineNo">773</span>                for (int i = 0; i &lt; m; i++) {<a name="line.773"></a>
-<span class="sourceLineNo">774</span>                                s = s + A[i][i];<a name="line.774"></a>
-<span class="sourceLineNo">775</span>                }<a name="line.775"></a>
-<span class="sourceLineNo">776</span>                return s;<a name="line.776"></a>
-<span class="sourceLineNo">777</span>        }<a name="line.777"></a>
-<span class="sourceLineNo">778</span>        <a name="line.778"></a>
-<span class="sourceLineNo">779</span>        <a name="line.779"></a>
-<span class="sourceLineNo">780</span>        // Matrix inversion ---------------------------------------<a name="line.780"></a>
-<span class="sourceLineNo">781</span>        <a name="line.781"></a>
-<span class="sourceLineNo">782</span>        <a name="line.782"></a>
-<span class="sourceLineNo">783</span>        /**<a name="line.783"></a>
-<span class="sourceLineNo">784</span>         * @param A a square matrix.<a name="line.784"></a>
-<span class="sourceLineNo">785</span>         * @return the inverse of A or null if A is non-square or singular.<a name="line.785"></a>
-<span class="sourceLineNo">786</span>         */<a name="line.786"></a>
-<span class="sourceLineNo">787</span>        public static double[][] inverse(final double[][] A) {<a name="line.787"></a>
-<span class="sourceLineNo">788</span>                RealMatrix M = MatrixUtils.createRealMatrix(A);<a name="line.788"></a>
-<span class="sourceLineNo">789</span>                if (!M.isSquare())<a name="line.789"></a>
-<span class="sourceLineNo">790</span>                        return null;<a name="line.790"></a>
-<span class="sourceLineNo">791</span>                else {<a name="line.791"></a>
-<span class="sourceLineNo">792</span>                        double[][] Ai = null;<a name="line.792"></a>
-<span class="sourceLineNo">793</span>                        try {<a name="line.793"></a>
-<span class="sourceLineNo">794</span>                                RealMatrix Mi = MatrixUtils.inverse(M); //new LUDecomposition(M).getSolver().getInverse();<a name="line.794"></a>
-<span class="sourceLineNo">795</span>                                Ai = Mi.getData();<a name="line.795"></a>
-<span class="sourceLineNo">796</span>                        } catch (SingularMatrixException e) {}<a name="line.796"></a>
-<span class="sourceLineNo">797</span>                        return Ai;<a name="line.797"></a>
-<span class="sourceLineNo">798</span>                }<a name="line.798"></a>
-<span class="sourceLineNo">799</span>        }<a name="line.799"></a>
-<span class="sourceLineNo">800</span>        <a name="line.800"></a>
-<span class="sourceLineNo">801</span>        public static float[][] inverse(final float[][] A) {<a name="line.801"></a>
-<span class="sourceLineNo">802</span>                double[][] B = duplicateToDouble(A);<a name="line.802"></a>
-<span class="sourceLineNo">803</span>                double[][] Bi = inverse(B);<a name="line.803"></a>
-<span class="sourceLineNo">804</span>                if (Bi == null)<a name="line.804"></a>
-<span class="sourceLineNo">805</span>                        return null;<a name="line.805"></a>
-<span class="sourceLineNo">806</span>                else<a name="line.806"></a>
-<span class="sourceLineNo">807</span>                        return duplicateToFloat(Bi);<a name="line.807"></a>
-<span class="sourceLineNo">808</span>        }<a name="line.808"></a>
-<span class="sourceLineNo">809</span>        <a name="line.809"></a>
-<span class="sourceLineNo">810</span>        // numerically stable?<a name="line.810"></a>
-<span class="sourceLineNo">811</span>        @Deprecated<a name="line.811"></a>
-<span class="sourceLineNo">812</span>        public static float[][] inverse2x2(final float[][] A) {<a name="line.812"></a>
-<span class="sourceLineNo">813</span>                float[][] B = duplicate(A);<a name="line.813"></a>
-<span class="sourceLineNo">814</span>                final double det = determinant2x2(B);<a name="line.814"></a>
-<span class="sourceLineNo">815</span>                if (Math.abs(det) &lt; Arithmetic.EPSILON_DOUBLE)<a name="line.815"></a>
-<span class="sourceLineNo">816</span>                        return null;<a name="line.816"></a>
-<span class="sourceLineNo">817</span>                else {<a name="line.817"></a>
-<span class="sourceLineNo">818</span>                        final double a00 = B[0][0];<a name="line.818"></a>
-<span class="sourceLineNo">819</span>                        final double a01 = B[0][1];<a name="line.819"></a>
-<span class="sourceLineNo">820</span>                        final double a10 = B[1][0];<a name="line.820"></a>
-<span class="sourceLineNo">821</span>                        final double a11 = B[1][1];<a name="line.821"></a>
-<span class="sourceLineNo">822</span>                        B[0][0] = (float) ( a11 / det);<a name="line.822"></a>
-<span class="sourceLineNo">823</span>                        B[0][1] = (float) (-a01 / det);<a name="line.823"></a>
-<span class="sourceLineNo">824</span>                        B[1][0] = (float) (-a10 / det);<a name="line.824"></a>
-<span class="sourceLineNo">825</span>                        B[1][1] = (float) ( a00 / det);<a name="line.825"></a>
-<span class="sourceLineNo">826</span>                        return B;<a name="line.826"></a>
-<span class="sourceLineNo">827</span>                }<a name="line.827"></a>
+<span class="sourceLineNo">720</span>        public static float determinant3x3(final float[][] A) {<a name="line.720"></a>
+<span class="sourceLineNo">721</span>                return<a name="line.721"></a>
+<span class="sourceLineNo">722</span>                                A[0][0] * A[1][1] * A[2][2] +<a name="line.722"></a>
+<span class="sourceLineNo">723</span>                                A[0][1] * A[1][2] * A[2][0] +<a name="line.723"></a>
+<span class="sourceLineNo">724</span>                                A[0][2] * A[1][0] * A[2][1] -<a name="line.724"></a>
+<span class="sourceLineNo">725</span>                                A[2][0] * A[1][1] * A[0][2] -<a name="line.725"></a>
+<span class="sourceLineNo">726</span>                                A[2][1] * A[1][2] * A[0][0] -<a name="line.726"></a>
+<span class="sourceLineNo">727</span>                                A[2][2] * A[1][0] * A[0][1] ;<a name="line.727"></a>
+<span class="sourceLineNo">728</span>        }<a name="line.728"></a>
+<span class="sourceLineNo">729</span><a name="line.729"></a>
+<span class="sourceLineNo">730</span>        public static double determinant3x3(final double[][] A) {<a name="line.730"></a>
+<span class="sourceLineNo">731</span>                return <a name="line.731"></a>
+<span class="sourceLineNo">732</span>                        A[0][0] * A[1][1] * A[2][2] + <a name="line.732"></a>
+<span class="sourceLineNo">733</span>                        A[0][1] * A[1][2] * A[2][0]     + <a name="line.733"></a>
+<span class="sourceLineNo">734</span>                        A[0][2] * A[1][0] * A[2][1] - <a name="line.734"></a>
+<span class="sourceLineNo">735</span>                        A[2][0] * A[1][1] * A[0][2] - <a name="line.735"></a>
+<span class="sourceLineNo">736</span>                        A[2][1] * A[1][2] * A[0][0] - <a name="line.736"></a>
+<span class="sourceLineNo">737</span>                        A[2][2] * A[1][0] * A[0][1] ;<a name="line.737"></a>
+<span class="sourceLineNo">738</span>        }<a name="line.738"></a>
+<span class="sourceLineNo">739</span>        <a name="line.739"></a>
+<span class="sourceLineNo">740</span>        public static double determinant(final double[][] A) {<a name="line.740"></a>
+<span class="sourceLineNo">741</span>                RealMatrix M = MatrixUtils.createRealMatrix(A);<a name="line.741"></a>
+<span class="sourceLineNo">742</span>                return new LUDecomposition(M).getDeterminant();<a name="line.742"></a>
+<span class="sourceLineNo">743</span>        }<a name="line.743"></a>
+<span class="sourceLineNo">744</span>        <a name="line.744"></a>
+<span class="sourceLineNo">745</span>        // Matrix transposition ---------------------------------------<a name="line.745"></a>
+<span class="sourceLineNo">746</span>        <a name="line.746"></a>
+<span class="sourceLineNo">747</span>        public static float[][] transpose(float[][] A) {<a name="line.747"></a>
+<span class="sourceLineNo">748</span>                final int m = getNumberOfRows(A);<a name="line.748"></a>
+<span class="sourceLineNo">749</span>                final int n = getNumberOfColumns(A);<a name="line.749"></a>
+<span class="sourceLineNo">750</span>                float[][] At = new float[n][m];<a name="line.750"></a>
+<span class="sourceLineNo">751</span>                for (int i = 0; i &lt; m; i++) {<a name="line.751"></a>
+<span class="sourceLineNo">752</span>                        for (int j = 0; j &lt; n; j++) {<a name="line.752"></a>
+<span class="sourceLineNo">753</span>                                At[j][i] = A[i][j];<a name="line.753"></a>
+<span class="sourceLineNo">754</span>                        }<a name="line.754"></a>
+<span class="sourceLineNo">755</span>                }<a name="line.755"></a>
+<span class="sourceLineNo">756</span>                return At;<a name="line.756"></a>
+<span class="sourceLineNo">757</span>        }<a name="line.757"></a>
+<span class="sourceLineNo">758</span>        <a name="line.758"></a>
+<span class="sourceLineNo">759</span>        public static double[][] transpose(double[][] A) {<a name="line.759"></a>
+<span class="sourceLineNo">760</span>                final int m = getNumberOfRows(A);<a name="line.760"></a>
+<span class="sourceLineNo">761</span>                final int n = getNumberOfColumns(A);<a name="line.761"></a>
+<span class="sourceLineNo">762</span>                double[][] At = new double[n][m];<a name="line.762"></a>
+<span class="sourceLineNo">763</span>                for (int i = 0; i &lt; m; i++) {<a name="line.763"></a>
+<span class="sourceLineNo">764</span>                        for (int j = 0; j &lt; n; j++) {<a name="line.764"></a>
+<span class="sourceLineNo">765</span>                                At[j][i] = A[i][j];<a name="line.765"></a>
+<span class="sourceLineNo">766</span>                        }<a name="line.766"></a>
+<span class="sourceLineNo">767</span>                }<a name="line.767"></a>
+<span class="sourceLineNo">768</span>                return At;<a name="line.768"></a>
+<span class="sourceLineNo">769</span>        }<a name="line.769"></a>
+<span class="sourceLineNo">770</span>        <a name="line.770"></a>
+<span class="sourceLineNo">771</span>        // Matrix Froebenius norm ---------------------------------------<a name="line.771"></a>
+<span class="sourceLineNo">772</span>        <a name="line.772"></a>
+<span class="sourceLineNo">773</span>        public static double froebeniusNorm(final double[][] A) {<a name="line.773"></a>
+<span class="sourceLineNo">774</span>                final int m = getNumberOfRows(A);<a name="line.774"></a>
+<span class="sourceLineNo">775</span>                final int n = getNumberOfColumns(A);<a name="line.775"></a>
+<span class="sourceLineNo">776</span>                double s = 0;<a name="line.776"></a>
+<span class="sourceLineNo">777</span>                for (int i = 0; i &lt; m; i++) {<a name="line.777"></a>
+<span class="sourceLineNo">778</span>                        for (int j = 0; j &lt; n; j++) {<a name="line.778"></a>
+<span class="sourceLineNo">779</span>                                s = s + A[i][j] * A[i][j];<a name="line.779"></a>
+<span class="sourceLineNo">780</span>                        }<a name="line.780"></a>
+<span class="sourceLineNo">781</span>                }<a name="line.781"></a>
+<span class="sourceLineNo">782</span>                return Math.sqrt(s);<a name="line.782"></a>
+<span class="sourceLineNo">783</span>        }<a name="line.783"></a>
+<span class="sourceLineNo">784</span>        <a name="line.784"></a>
+<span class="sourceLineNo">785</span>        // Matrix trace ---------------------------------------<a name="line.785"></a>
+<span class="sourceLineNo">786</span>        <a name="line.786"></a>
+<span class="sourceLineNo">787</span>        public static double trace(final double[][] A) {<a name="line.787"></a>
+<span class="sourceLineNo">788</span>                final int m = getNumberOfRows(A);<a name="line.788"></a>
+<span class="sourceLineNo">789</span>                final int n = getNumberOfColumns(A);<a name="line.789"></a>
+<span class="sourceLineNo">790</span>                if (m != n) <a name="line.790"></a>
+<span class="sourceLineNo">791</span>                        throw new IllegalArgumentException("square matrix expected");<a name="line.791"></a>
+<span class="sourceLineNo">792</span>                double s = 0;<a name="line.792"></a>
+<span class="sourceLineNo">793</span>                for (int i = 0; i &lt; m; i++) {<a name="line.793"></a>
+<span class="sourceLineNo">794</span>                                s = s + A[i][i];<a name="line.794"></a>
+<span class="sourceLineNo">795</span>                }<a name="line.795"></a>
+<span class="sourceLineNo">796</span>                return s;<a name="line.796"></a>
+<span class="sourceLineNo">797</span>        }<a name="line.797"></a>
+<span class="sourceLineNo">798</span>        <a name="line.798"></a>
+<span class="sourceLineNo">799</span>        <a name="line.799"></a>
+<span class="sourceLineNo">800</span>        // Matrix inversion ---------------------------------------<a name="line.800"></a>
+<span class="sourceLineNo">801</span>        <a name="line.801"></a>
+<span class="sourceLineNo">802</span>        <a name="line.802"></a>
+<span class="sourceLineNo">803</span>        /**<a name="line.803"></a>
+<span class="sourceLineNo">804</span>         * @param A a square matrix.<a name="line.804"></a>
+<span class="sourceLineNo">805</span>         * @return the inverse of A or null if A is non-square or singular.<a name="line.805"></a>
+<span class="sourceLineNo">806</span>         */<a name="line.806"></a>
+<span class="sourceLineNo">807</span>        public static double[][] inverse(final double[][] A) {<a name="line.807"></a>
+<span class="sourceLineNo">808</span>                RealMatrix M = MatrixUtils.createRealMatrix(A);<a name="line.808"></a>
+<span class="sourceLineNo">809</span>                if (!M.isSquare())<a name="line.809"></a>
+<span class="sourceLineNo">810</span>                        return null;<a name="line.810"></a>
+<span class="sourceLineNo">811</span>                else {<a name="line.811"></a>
+<span class="sourceLineNo">812</span>                        double[][] Ai = null;<a name="line.812"></a>
+<span class="sourceLineNo">813</span>                        try {<a name="line.813"></a>
+<span class="sourceLineNo">814</span>                                RealMatrix Mi = MatrixUtils.inverse(M); //new LUDecomposition(M).getSolver().getInverse();<a name="line.814"></a>
+<span class="sourceLineNo">815</span>                                Ai = Mi.getData();<a name="line.815"></a>
+<span class="sourceLineNo">816</span>                        } catch (SingularMatrixException e) {}<a name="line.816"></a>
+<span class="sourceLineNo">817</span>                        return Ai;<a name="line.817"></a>
+<span class="sourceLineNo">818</span>                }<a name="line.818"></a>
+<span class="sourceLineNo">819</span>        }<a name="line.819"></a>
+<span class="sourceLineNo">820</span>        <a name="line.820"></a>
+<span class="sourceLineNo">821</span>        public static float[][] inverse(final float[][] A) {<a name="line.821"></a>
+<span class="sourceLineNo">822</span>                double[][] B = duplicateToDouble(A);<a name="line.822"></a>
+<span class="sourceLineNo">823</span>                double[][] Bi = inverse(B);<a name="line.823"></a>
+<span class="sourceLineNo">824</span>                if (Bi == null)<a name="line.824"></a>
+<span class="sourceLineNo">825</span>                        return null;<a name="line.825"></a>
+<span class="sourceLineNo">826</span>                else<a name="line.826"></a>
+<span class="sourceLineNo">827</span>                        return duplicateToFloat(Bi);<a name="line.827"></a>
 <span class="sourceLineNo">828</span>        }<a name="line.828"></a>
-<span class="sourceLineNo">829</span><a name="line.829"></a>
+<span class="sourceLineNo">829</span>        <a name="line.829"></a>
 <span class="sourceLineNo">830</span>        // numerically stable?<a name="line.830"></a>
 <span class="sourceLineNo">831</span>        @Deprecated<a name="line.831"></a>
-<span class="sourceLineNo">832</span>        public static double[][] inverse2x2(final double[][] A) {<a name="line.832"></a>
-<span class="sourceLineNo">833</span>                double[][] B = duplicate(A);<a name="line.833"></a>
+<span class="sourceLineNo">832</span>        public static float[][] inverse2x2(final float[][] A) {<a name="line.832"></a>
+<span class="sourceLineNo">833</span>                float[][] B = duplicate(A);<a name="line.833"></a>
 <span class="sourceLineNo">834</span>                final double det = determinant2x2(B);<a name="line.834"></a>
 <span class="sourceLineNo">835</span>                if (Math.abs(det) &lt; Arithmetic.EPSILON_DOUBLE)<a name="line.835"></a>
 <span class="sourceLineNo">836</span>                        return null;<a name="line.836"></a>
@@ -847,244 +847,261 @@
 <span class="sourceLineNo">839</span>                        final double a01 = B[0][1];<a name="line.839"></a>
 <span class="sourceLineNo">840</span>                        final double a10 = B[1][0];<a name="line.840"></a>
 <span class="sourceLineNo">841</span>                        final double a11 = B[1][1];<a name="line.841"></a>
-<span class="sourceLineNo">842</span>                        B[0][0] =  a11 / det;<a name="line.842"></a>
-<span class="sourceLineNo">843</span>                        B[0][1] = -a01 / det;<a name="line.843"></a>
-<span class="sourceLineNo">844</span>                        B[1][0] = -a10 / det;<a name="line.844"></a>
-<span class="sourceLineNo">845</span>                        B[1][1] =  a00 / det;<a name="line.845"></a>
+<span class="sourceLineNo">842</span>                        B[0][0] = (float) ( a11 / det);<a name="line.842"></a>
+<span class="sourceLineNo">843</span>                        B[0][1] = (float) (-a01 / det);<a name="line.843"></a>
+<span class="sourceLineNo">844</span>                        B[1][0] = (float) (-a10 / det);<a name="line.844"></a>
+<span class="sourceLineNo">845</span>                        B[1][1] = (float) ( a00 / det);<a name="line.845"></a>
 <span class="sourceLineNo">846</span>                        return B;<a name="line.846"></a>
 <span class="sourceLineNo">847</span>                }<a name="line.847"></a>
 <span class="sourceLineNo">848</span>        }<a name="line.848"></a>
 <span class="sourceLineNo">849</span><a name="line.849"></a>
-<span class="sourceLineNo">850</span>        // use general method, i.e. double[][] inverse(double[][] A)<a name="line.850"></a>
-<span class="sourceLineNo">851</span>//      @Deprecated<a name="line.851"></a>
-<span class="sourceLineNo">852</span>//      public static double[][] inverse3x3(final double[][] A) {<a name="line.852"></a>
-<span class="sourceLineNo">853</span>//              double[][] B = duplicate(A);<a name="line.853"></a>
-<span class="sourceLineNo">854</span>//              final double det = determinant3x3(B);<a name="line.854"></a>
-<span class="sourceLineNo">855</span>//              if (Math.abs(det) &lt; Arithmetic.EPSILON_DOUBLE)<a name="line.855"></a>
-<span class="sourceLineNo">856</span>//                      return null;<a name="line.856"></a>
-<span class="sourceLineNo">857</span>//              else {<a name="line.857"></a>
-<span class="sourceLineNo">858</span>//                      final double a00 = B[0][0];<a name="line.858"></a>
-<span class="sourceLineNo">859</span>//                      final double a01 = B[0][1];<a name="line.859"></a>
-<span class="sourceLineNo">860</span>//                      final double a02 = B[0][2];<a name="line.860"></a>
-<span class="sourceLineNo">861</span>//                      final double a10 = B[1][0];<a name="line.861"></a>
-<span class="sourceLineNo">862</span>//                      final double a11 = B[1][1];<a name="line.862"></a>
-<span class="sourceLineNo">863</span>//                      final double a12 = B[1][2];<a name="line.863"></a>
-<span class="sourceLineNo">864</span>//                      final double a20 = B[2][0];<a name="line.864"></a>
-<span class="sourceLineNo">865</span>//                      final double a21 = B[2][1];<a name="line.865"></a>
-<span class="sourceLineNo">866</span>//                      final double a22 = B[2][2];<a name="line.866"></a>
-<span class="sourceLineNo">867</span>//                      B[0][0] = (a11 * a22 - a12 * a21) / det;<a name="line.867"></a>
-<span class="sourceLineNo">868</span>//                      B[0][1] = (a02 * a21 - a01 * a22) / det;<a name="line.868"></a>
-<span class="sourceLineNo">869</span>//                      B[0][2] = (a01 * a12 - a02 * a11) / det;<a name="line.869"></a>
-<span class="sourceLineNo">870</span>//<a name="line.870"></a>
-<span class="sourceLineNo">871</span>//                      B[1][0] = (a12 * a20 - a10 * a22) / det;<a name="line.871"></a>
-<span class="sourceLineNo">872</span>//                      B[1][1] = (a00 * a22 - a02 * a20) / det;<a name="line.872"></a>
-<span class="sourceLineNo">873</span>//                      B[1][2] = (a02 * a10 - a00 * a12) / det;<a name="line.873"></a>
-<span class="sourceLineNo">874</span>//<a name="line.874"></a>
-<span class="sourceLineNo">875</span>//                      B[2][0] = (a10 * a21 - a11 * a20) / det;<a name="line.875"></a>
-<span class="sourceLineNo">876</span>//                      B[2][1] = (a01 * a20 - a00 * a21) / det;<a name="line.876"></a>
-<span class="sourceLineNo">877</span>//                      B[2][2] = (a00 * a11 - a01 * a10) / det;<a name="line.877"></a>
-<span class="sourceLineNo">878</span>//                      return B;<a name="line.878"></a>
-<span class="sourceLineNo">879</span>//              }<a name="line.879"></a>
-<span class="sourceLineNo">880</span>//      }<a name="line.880"></a>
-<span class="sourceLineNo">881</span>        <a name="line.881"></a>
-<span class="sourceLineNo">882</span>        // numerically stable? should be replaced by standard inversion<a name="line.882"></a>
-<span class="sourceLineNo">883</span>//      @Deprecated<a name="line.883"></a>
-<span class="sourceLineNo">884</span>//      public static float[][] inverse3x3(final float[][] A) {<a name="line.884"></a>
-<span class="sourceLineNo">885</span>//              final float[][] B = duplicate(A);<a name="line.885"></a>
-<span class="sourceLineNo">886</span>//              final double det = determinant3x3(B);<a name="line.886"></a>
-<span class="sourceLineNo">887</span>//              // IJ.log("   determinant = " + det);<a name="line.887"></a>
-<span class="sourceLineNo">888</span>//              if (Math.abs(det) &lt; Arithmetic.EPSILON_DOUBLE)<a name="line.888"></a>
-<span class="sourceLineNo">889</span>//                      return null;<a name="line.889"></a>
-<span class="sourceLineNo">890</span>//              else {<a name="line.890"></a>
-<span class="sourceLineNo">891</span>//                      final double a00 = B[0][0];<a name="line.891"></a>
-<span class="sourceLineNo">892</span>//                      final double a01 = B[0][1];<a name="line.892"></a>
-<span class="sourceLineNo">893</span>//                      final double a02 = B[0][2];<a name="line.893"></a>
-<span class="sourceLineNo">894</span>//                      final double a10 = B[1][0];<a name="line.894"></a>
-<span class="sourceLineNo">895</span>//                      final double a11 = B[1][1];<a name="line.895"></a>
-<span class="sourceLineNo">896</span>//                      final double a12 = B[1][2];<a name="line.896"></a>
-<span class="sourceLineNo">897</span>//                      final double a20 = B[2][0];<a name="line.897"></a>
-<span class="sourceLineNo">898</span>//                      final double a21 = B[2][1];<a name="line.898"></a>
-<span class="sourceLineNo">899</span>//                      final double a22 = B[2][2];<a name="line.899"></a>
-<span class="sourceLineNo">900</span>//                      B[0][0] = (float) ((a11 * a22 - a12 * a21) / det);<a name="line.900"></a>
-<span class="sourceLineNo">901</span>//                      B[0][1] = (float) ((a02 * a21 - a01 * a22) / det);<a name="line.901"></a>
-<span class="sourceLineNo">902</span>//                      B[0][2] = (float) ((a01 * a12 - a02 * a11) / det);<a name="line.902"></a>
-<span class="sourceLineNo">903</span>//<a name="line.903"></a>
-<span class="sourceLineNo">904</span>//                      B[1][0] = (float) ((a12 * a20 - a10 * a22) / det);<a name="line.904"></a>
-<span class="sourceLineNo">905</span>//                      B[1][1] = (float) ((a00 * a22 - a02 * a20) / det);<a name="line.905"></a>
-<span class="sourceLineNo">906</span>//                      B[1][2] = (float) ((a02 * a10 - a00 * a12) / det);<a name="line.906"></a>
-<span class="sourceLineNo">907</span>//<a name="line.907"></a>
-<span class="sourceLineNo">908</span>//                      B[2][0] = (float) ((a10 * a21 - a11 * a20) / det);<a name="line.908"></a>
-<span class="sourceLineNo">909</span>//                      B[2][1] = (float) ((a01 * a20 - a00 * a21) / det);<a name="line.909"></a>
-<span class="sourceLineNo">910</span>//                      B[2][2] = (float) ((a00 * a11 - a01 * a10) / det);<a name="line.910"></a>
-<span class="sourceLineNo">911</span>//                      return B;<a name="line.911"></a>
-<span class="sourceLineNo">912</span>//              }<a name="line.912"></a>
-<span class="sourceLineNo">913</span>//      }<a name="line.913"></a>
-<span class="sourceLineNo">914</span>        <a name="line.914"></a>
-<span class="sourceLineNo">915</span>        // ------------------------------------------------------------------------<a name="line.915"></a>
-<span class="sourceLineNo">916</span>        <a name="line.916"></a>
-<span class="sourceLineNo">917</span>        // Finds the EXACT solution x for A.x = b<a name="line.917"></a>
-<span class="sourceLineNo">918</span>        public static double[] solve(final double[][] A, double[] b) {<a name="line.918"></a>
-<span class="sourceLineNo">919</span>                RealMatrix AA = MatrixUtils.createRealMatrix(A);<a name="line.919"></a>
-<span class="sourceLineNo">920</span>                RealVector bb = MatrixUtils.createRealVector(b);<a name="line.920"></a>
-<span class="sourceLineNo">921</span>                DecompositionSolver solver = new LUDecomposition(AA).getSolver();<a name="line.921"></a>
-<span class="sourceLineNo">922</span>                double[] x = null;<a name="line.922"></a>
-<span class="sourceLineNo">923</span>                try {<a name="line.923"></a>
-<span class="sourceLineNo">924</span>                        x = solver.solve(bb).toArray();<a name="line.924"></a>
-<span class="sourceLineNo">925</span>                } catch (SingularMatrixException e) {}<a name="line.925"></a>
-<span class="sourceLineNo">926</span>                return x;<a name="line.926"></a>
-<span class="sourceLineNo">927</span>        }<a name="line.927"></a>
-<span class="sourceLineNo">928</span>        <a name="line.928"></a>
-<span class="sourceLineNo">929</span>        // Output to streams and strings ------------------------------------------<a name="line.929"></a>
-<span class="sourceLineNo">930</span>        <a name="line.930"></a>
-<span class="sourceLineNo">931</span>        public static String toString(double[] x) {<a name="line.931"></a>
-<span class="sourceLineNo">932</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.932"></a>
-<span class="sourceLineNo">933</span>                PrintStream strm = new PrintStream(bas);<a name="line.933"></a>
-<span class="sourceLineNo">934</span>                printToStream(x, strm);<a name="line.934"></a>
-<span class="sourceLineNo">935</span>                return bas.toString();<a name="line.935"></a>
-<span class="sourceLineNo">936</span>        }<a name="line.936"></a>
-<span class="sourceLineNo">937</span>        <a name="line.937"></a>
-<span class="sourceLineNo">938</span>        public static void printToStream(double[] A, PrintStream strm) {<a name="line.938"></a>
-<span class="sourceLineNo">939</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.939"></a>
-<span class="sourceLineNo">940</span>                strm.format("{");<a name="line.940"></a>
-<span class="sourceLineNo">941</span>                for (int i = 0; i &lt; A.length; i++) {<a name="line.941"></a>
-<span class="sourceLineNo">942</span>                        if (i &gt; 0)<a name="line.942"></a>
-<span class="sourceLineNo">943</span>                                strm.format(", ");<a name="line.943"></a>
-<span class="sourceLineNo">944</span>                        strm.format(loc, fStr, A[i]);<a name="line.944"></a>
-<span class="sourceLineNo">945</span>                }<a name="line.945"></a>
-<span class="sourceLineNo">946</span>                strm.format("}");<a name="line.946"></a>
-<span class="sourceLineNo">947</span>                strm.flush();<a name="line.947"></a>
-<span class="sourceLineNo">948</span>        }<a name="line.948"></a>
-<span class="sourceLineNo">949</span>        <a name="line.949"></a>
-<span class="sourceLineNo">950</span>        public static String toString(double[][] A) {<a name="line.950"></a>
-<span class="sourceLineNo">951</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.951"></a>
-<span class="sourceLineNo">952</span>                PrintStream strm = new PrintStream(bas);<a name="line.952"></a>
-<span class="sourceLineNo">953</span>                printToStream(A, strm);<a name="line.953"></a>
-<span class="sourceLineNo">954</span>                return bas.toString();<a name="line.954"></a>
-<span class="sourceLineNo">955</span>        }<a name="line.955"></a>
-<span class="sourceLineNo">956</span>        <a name="line.956"></a>
-<span class="sourceLineNo">957</span>        public static void printToStream(double[][] A, PrintStream strm) {<a name="line.957"></a>
-<span class="sourceLineNo">958</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.958"></a>
-<span class="sourceLineNo">959</span>                strm.format("{");<a name="line.959"></a>
-<span class="sourceLineNo">960</span>                for (int i=0; i&lt; A.length; i++) {<a name="line.960"></a>
-<span class="sourceLineNo">961</span>                        if (i == 0)<a name="line.961"></a>
-<span class="sourceLineNo">962</span>                                strm.format("{");<a name="line.962"></a>
-<span class="sourceLineNo">963</span>                        else<a name="line.963"></a>
-<span class="sourceLineNo">964</span>                                strm.format(", \n{");<a name="line.964"></a>
-<span class="sourceLineNo">965</span>                        for (int j=0; j&lt; A[i].length; j++) {<a name="line.965"></a>
-<span class="sourceLineNo">966</span>                                if (j == 0) <a name="line.966"></a>
-<span class="sourceLineNo">967</span>                                        strm.format(loc, fStr, A[i][j]);<a name="line.967"></a>
-<span class="sourceLineNo">968</span>                                else<a name="line.968"></a>
-<span class="sourceLineNo">969</span>                                        strm.format(loc, ", " + fStr, A[i][j]);<a name="line.969"></a>
-<span class="sourceLineNo">970</span>                        }<a name="line.970"></a>
-<span class="sourceLineNo">971</span>                        strm.format("}");<a name="line.971"></a>
-<span class="sourceLineNo">972</span>                }<a name="line.972"></a>
-<span class="sourceLineNo">973</span>                strm.format("}");<a name="line.973"></a>
-<span class="sourceLineNo">974</span>                strm.flush();<a name="line.974"></a>
+<span class="sourceLineNo">850</span>        // numerically stable?<a name="line.850"></a>
+<span class="sourceLineNo">851</span>        @Deprecated<a name="line.851"></a>
+<span class="sourceLineNo">852</span>        public static double[][] inverse2x2(final double[][] A) {<a name="line.852"></a>
+<span class="sourceLineNo">853</span>                double[][] B = duplicate(A);<a name="line.853"></a>
+<span class="sourceLineNo">854</span>                final double det = determinant2x2(B);<a name="line.854"></a>
+<span class="sourceLineNo">855</span>                if (Math.abs(det) &lt; Arithmetic.EPSILON_DOUBLE)<a name="line.855"></a>
+<span class="sourceLineNo">856</span>                        return null;<a name="line.856"></a>
+<span class="sourceLineNo">857</span>                else {<a name="line.857"></a>
+<span class="sourceLineNo">858</span>                        final double a00 = B[0][0];<a name="line.858"></a>
+<span class="sourceLineNo">859</span>                        final double a01 = B[0][1];<a name="line.859"></a>
+<span class="sourceLineNo">860</span>                        final double a10 = B[1][0];<a name="line.860"></a>
+<span class="sourceLineNo">861</span>                        final double a11 = B[1][1];<a name="line.861"></a>
+<span class="sourceLineNo">862</span>                        B[0][0] =  a11 / det;<a name="line.862"></a>
+<span class="sourceLineNo">863</span>                        B[0][1] = -a01 / det;<a name="line.863"></a>
+<span class="sourceLineNo">864</span>                        B[1][0] = -a10 / det;<a name="line.864"></a>
+<span class="sourceLineNo">865</span>                        B[1][1] =  a00 / det;<a name="line.865"></a>
+<span class="sourceLineNo">866</span>                        return B;<a name="line.866"></a>
+<span class="sourceLineNo">867</span>                }<a name="line.867"></a>
+<span class="sourceLineNo">868</span>        }<a name="line.868"></a>
+<span class="sourceLineNo">869</span><a name="line.869"></a>
+<span class="sourceLineNo">870</span>        // use general method, i.e. double[][] inverse(double[][] A)<a name="line.870"></a>
+<span class="sourceLineNo">871</span>//      @Deprecated<a name="line.871"></a>
+<span class="sourceLineNo">872</span>//      public static double[][] inverse3x3(final double[][] A) {<a name="line.872"></a>
+<span class="sourceLineNo">873</span>//              double[][] B = duplicate(A);<a name="line.873"></a>
+<span class="sourceLineNo">874</span>//              final double det = determinant3x3(B);<a name="line.874"></a>
+<span class="sourceLineNo">875</span>//              if (Math.abs(det) &lt; Arithmetic.EPSILON_DOUBLE)<a name="line.875"></a>
+<span class="sourceLineNo">876</span>//                      return null;<a name="line.876"></a>
+<span class="sourceLineNo">877</span>//              else {<a name="line.877"></a>
+<span class="sourceLineNo">878</span>//                      final double a00 = B[0][0];<a name="line.878"></a>
+<span class="sourceLineNo">879</span>//                      final double a01 = B[0][1];<a name="line.879"></a>
+<span class="sourceLineNo">880</span>//                      final double a02 = B[0][2];<a name="line.880"></a>
+<span class="sourceLineNo">881</span>//                      final double a10 = B[1][0];<a name="line.881"></a>
+<span class="sourceLineNo">882</span>//                      final double a11 = B[1][1];<a name="line.882"></a>
+<span class="sourceLineNo">883</span>//                      final double a12 = B[1][2];<a name="line.883"></a>
+<span class="sourceLineNo">884</span>//                      final double a20 = B[2][0];<a name="line.884"></a>
+<span class="sourceLineNo">885</span>//                      final double a21 = B[2][1];<a name="line.885"></a>
+<span class="sourceLineNo">886</span>//                      final double a22 = B[2][2];<a name="line.886"></a>
+<span class="sourceLineNo">887</span>//                      B[0][0] = (a11 * a22 - a12 * a21) / det;<a name="line.887"></a>
+<span class="sourceLineNo">888</span>//                      B[0][1] = (a02 * a21 - a01 * a22) / det;<a name="line.888"></a>
+<span class="sourceLineNo">889</span>//                      B[0][2] = (a01 * a12 - a02 * a11) / det;<a name="line.889"></a>
+<span class="sourceLineNo">890</span>//<a name="line.890"></a>
+<span class="sourceLineNo">891</span>//                      B[1][0] = (a12 * a20 - a10 * a22) / det;<a name="line.891"></a>
+<span class="sourceLineNo">892</span>//                      B[1][1] = (a00 * a22 - a02 * a20) / det;<a name="line.892"></a>
+<span class="sourceLineNo">893</span>//                      B[1][2] = (a02 * a10 - a00 * a12) / det;<a name="line.893"></a>
+<span class="sourceLineNo">894</span>//<a name="line.894"></a>
+<span class="sourceLineNo">895</span>//                      B[2][0] = (a10 * a21 - a11 * a20) / det;<a name="line.895"></a>
+<span class="sourceLineNo">896</span>//                      B[2][1] = (a01 * a20 - a00 * a21) / det;<a name="line.896"></a>
+<span class="sourceLineNo">897</span>//                      B[2][2] = (a00 * a11 - a01 * a10) / det;<a name="line.897"></a>
+<span class="sourceLineNo">898</span>//                      return B;<a name="line.898"></a>
+<span class="sourceLineNo">899</span>//              }<a name="line.899"></a>
+<span class="sourceLineNo">900</span>//      }<a name="line.900"></a>
+<span class="sourceLineNo">901</span>        <a name="line.901"></a>
+<span class="sourceLineNo">902</span>        // numerically stable? should be replaced by standard inversion<a name="line.902"></a>
+<span class="sourceLineNo">903</span>//      @Deprecated<a name="line.903"></a>
+<span class="sourceLineNo">904</span>//      public static float[][] inverse3x3(final float[][] A) {<a name="line.904"></a>
+<span class="sourceLineNo">905</span>//              final float[][] B = duplicate(A);<a name="line.905"></a>
+<span class="sourceLineNo">906</span>//              final double det = determinant3x3(B);<a name="line.906"></a>
+<span class="sourceLineNo">907</span>//              // IJ.log("   determinant = " + det);<a name="line.907"></a>
+<span class="sourceLineNo">908</span>//              if (Math.abs(det) &lt; Arithmetic.EPSILON_DOUBLE)<a name="line.908"></a>
+<span class="sourceLineNo">909</span>//                      return null;<a name="line.909"></a>
+<span class="sourceLineNo">910</span>//              else {<a name="line.910"></a>
+<span class="sourceLineNo">911</span>//                      final double a00 = B[0][0];<a name="line.911"></a>
+<span class="sourceLineNo">912</span>//                      final double a01 = B[0][1];<a name="line.912"></a>
+<span class="sourceLineNo">913</span>//                      final double a02 = B[0][2];<a name="line.913"></a>
+<span class="sourceLineNo">914</span>//                      final double a10 = B[1][0];<a name="line.914"></a>
+<span class="sourceLineNo">915</span>//                      final double a11 = B[1][1];<a name="line.915"></a>
+<span class="sourceLineNo">916</span>//                      final double a12 = B[1][2];<a name="line.916"></a>
+<span class="sourceLineNo">917</span>//                      final double a20 = B[2][0];<a name="line.917"></a>
+<span class="sourceLineNo">918</span>//                      final double a21 = B[2][1];<a name="line.918"></a>
+<span class="sourceLineNo">919</span>//                      final double a22 = B[2][2];<a name="line.919"></a>
+<span class="sourceLineNo">920</span>//                      B[0][0] = (float) ((a11 * a22 - a12 * a21) / det);<a name="line.920"></a>
+<span class="sourceLineNo">921</span>//                      B[0][1] = (float) ((a02 * a21 - a01 * a22) / det);<a name="line.921"></a>
+<span class="sourceLineNo">922</span>//                      B[0][2] = (float) ((a01 * a12 - a02 * a11) / det);<a name="line.922"></a>
+<span class="sourceLineNo">923</span>//<a name="line.923"></a>
+<span class="sourceLineNo">924</span>//                      B[1][0] = (float) ((a12 * a20 - a10 * a22) / det);<a name="line.924"></a>
+<span class="sourceLineNo">925</span>//                      B[1][1] = (float) ((a00 * a22 - a02 * a20) / det);<a name="line.925"></a>
+<span class="sourceLineNo">926</span>//                      B[1][2] = (float) ((a02 * a10 - a00 * a12) / det);<a name="line.926"></a>
+<span class="sourceLineNo">927</span>//<a name="line.927"></a>
+<span class="sourceLineNo">928</span>//                      B[2][0] = (float) ((a10 * a21 - a11 * a20) / det);<a name="line.928"></a>
+<span class="sourceLineNo">929</span>//                      B[2][1] = (float) ((a01 * a20 - a00 * a21) / det);<a name="line.929"></a>
+<span class="sourceLineNo">930</span>//                      B[2][2] = (float) ((a00 * a11 - a01 * a10) / det);<a name="line.930"></a>
+<span class="sourceLineNo">931</span>//                      return B;<a name="line.931"></a>
+<span class="sourceLineNo">932</span>//              }<a name="line.932"></a>
+<span class="sourceLineNo">933</span>//      }<a name="line.933"></a>
+<span class="sourceLineNo">934</span>        <a name="line.934"></a>
+<span class="sourceLineNo">935</span>        // ------------------------------------------------------------------------<a name="line.935"></a>
+<span class="sourceLineNo">936</span>        <a name="line.936"></a>
+<span class="sourceLineNo">937</span>        // Finds the EXACT solution x for A.x = b<a name="line.937"></a>
+<span class="sourceLineNo">938</span>        public static double[] solve(final double[][] A, double[] b) {<a name="line.938"></a>
+<span class="sourceLineNo">939</span>                RealMatrix AA = MatrixUtils.createRealMatrix(A);<a name="line.939"></a>
+<span class="sourceLineNo">940</span>                RealVector bb = MatrixUtils.createRealVector(b);<a name="line.940"></a>
+<span class="sourceLineNo">941</span>                DecompositionSolver solver = new LUDecomposition(AA).getSolver();<a name="line.941"></a>
+<span class="sourceLineNo">942</span>                double[] x = null;<a name="line.942"></a>
+<span class="sourceLineNo">943</span>                try {<a name="line.943"></a>
+<span class="sourceLineNo">944</span>                        x = solver.solve(bb).toArray();<a name="line.944"></a>
+<span class="sourceLineNo">945</span>                } catch (SingularMatrixException e) {}<a name="line.945"></a>
+<span class="sourceLineNo">946</span>                return x;<a name="line.946"></a>
+<span class="sourceLineNo">947</span>        }<a name="line.947"></a>
+<span class="sourceLineNo">948</span>        <a name="line.948"></a>
+<span class="sourceLineNo">949</span>        // Output to streams and strings ------------------------------------------<a name="line.949"></a>
+<span class="sourceLineNo">950</span>        <a name="line.950"></a>
+<span class="sourceLineNo">951</span>        public static String toString(double[] x) {<a name="line.951"></a>
+<span class="sourceLineNo">952</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.952"></a>
+<span class="sourceLineNo">953</span>                PrintStream strm = new PrintStream(bas);<a name="line.953"></a>
+<span class="sourceLineNo">954</span>                printToStream(x, strm);<a name="line.954"></a>
+<span class="sourceLineNo">955</span>                return bas.toString();<a name="line.955"></a>
+<span class="sourceLineNo">956</span>        }<a name="line.956"></a>
+<span class="sourceLineNo">957</span>        <a name="line.957"></a>
+<span class="sourceLineNo">958</span>        public static void printToStream(double[] A, PrintStream strm) {<a name="line.958"></a>
+<span class="sourceLineNo">959</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.959"></a>
+<span class="sourceLineNo">960</span>                strm.format("{");<a name="line.960"></a>
+<span class="sourceLineNo">961</span>                for (int i = 0; i &lt; A.length; i++) {<a name="line.961"></a>
+<span class="sourceLineNo">962</span>                        if (i &gt; 0)<a name="line.962"></a>
+<span class="sourceLineNo">963</span>                                strm.format(", ");<a name="line.963"></a>
+<span class="sourceLineNo">964</span>                        strm.format(loc, fStr, A[i]);<a name="line.964"></a>
+<span class="sourceLineNo">965</span>                }<a name="line.965"></a>
+<span class="sourceLineNo">966</span>                strm.format("}");<a name="line.966"></a>
+<span class="sourceLineNo">967</span>                strm.flush();<a name="line.967"></a>
+<span class="sourceLineNo">968</span>        }<a name="line.968"></a>
+<span class="sourceLineNo">969</span>        <a name="line.969"></a>
+<span class="sourceLineNo">970</span>        public static String toString(double[][] A) {<a name="line.970"></a>
+<span class="sourceLineNo">971</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.971"></a>
+<span class="sourceLineNo">972</span>                PrintStream strm = new PrintStream(bas);<a name="line.972"></a>
+<span class="sourceLineNo">973</span>                printToStream(A, strm);<a name="line.973"></a>
+<span class="sourceLineNo">974</span>                return bas.toString();<a name="line.974"></a>
 <span class="sourceLineNo">975</span>        }<a name="line.975"></a>
 <span class="sourceLineNo">976</span>        <a name="line.976"></a>
-<span class="sourceLineNo">977</span>        public static String toString(float[] A) {<a name="line.977"></a>
-<span class="sourceLineNo">978</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.978"></a>
-<span class="sourceLineNo">979</span>                PrintStream strm = new PrintStream(bas);<a name="line.979"></a>
-<span class="sourceLineNo">980</span>                printToStream(A, strm);<a name="line.980"></a>
-<span class="sourceLineNo">981</span>                return bas.toString();<a name="line.981"></a>
-<span class="sourceLineNo">982</span>        }<a name="line.982"></a>
-<span class="sourceLineNo">983</span>        <a name="line.983"></a>
-<span class="sourceLineNo">984</span>        public static void printToStream(float[] A, PrintStream strm) {<a name="line.984"></a>
-<span class="sourceLineNo">985</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.985"></a>
-<span class="sourceLineNo">986</span>                strm.format("{");<a name="line.986"></a>
-<span class="sourceLineNo">987</span>                for (int i = 0; i &lt; A.length; i++) {<a name="line.987"></a>
-<span class="sourceLineNo">988</span>                        if (i &gt; 0)<a name="line.988"></a>
-<span class="sourceLineNo">989</span>                                strm.format(", ");<a name="line.989"></a>
-<span class="sourceLineNo">990</span>                        strm.format(loc, fStr, A[i]);<a name="line.990"></a>
-<span class="sourceLineNo">991</span>                }<a name="line.991"></a>
-<span class="sourceLineNo">992</span>                strm.format("}");<a name="line.992"></a>
-<span class="sourceLineNo">993</span>                strm.flush();<a name="line.993"></a>
-<span class="sourceLineNo">994</span>        }<a name="line.994"></a>
-<span class="sourceLineNo">995</span><a name="line.995"></a>
-<span class="sourceLineNo">996</span>        public static String toString(float[][] A) {<a name="line.996"></a>
-<span class="sourceLineNo">997</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.997"></a>
-<span class="sourceLineNo">998</span>                PrintStream strm = new PrintStream(bas);<a name="line.998"></a>
-<span class="sourceLineNo">999</span>                printToStream(A, strm);<a name="line.999"></a>
-<span class="sourceLineNo">1000</span>                return bas.toString();<a name="line.1000"></a>
-<span class="sourceLineNo">1001</span>        }<a name="line.1001"></a>
-<span class="sourceLineNo">1002</span>        <a name="line.1002"></a>
-<span class="sourceLineNo">1003</span>        public static void printToStream(float[][] A, PrintStream strm) {<a name="line.1003"></a>
-<span class="sourceLineNo">1004</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.1004"></a>
-<span class="sourceLineNo">1005</span>                strm.format("{");<a name="line.1005"></a>
-<span class="sourceLineNo">1006</span>                for (int i=0; i&lt; A.length; i++) {<a name="line.1006"></a>
-<span class="sourceLineNo">1007</span>                        if (i == 0)<a name="line.1007"></a>
-<span class="sourceLineNo">1008</span>                                strm.format("{");<a name="line.1008"></a>
-<span class="sourceLineNo">1009</span>                        else<a name="line.1009"></a>
-<span class="sourceLineNo">1010</span>                                strm.format(", \n{");<a name="line.1010"></a>
-<span class="sourceLineNo">1011</span>                        for (int j=0; j&lt; A[i].length; j++) {<a name="line.1011"></a>
-<span class="sourceLineNo">1012</span>                                if (j == 0) <a name="line.1012"></a>
-<span class="sourceLineNo">1013</span>                                        strm.format(loc, fStr, A[i][j]);<a name="line.1013"></a>
-<span class="sourceLineNo">1014</span>                                else<a name="line.1014"></a>
-<span class="sourceLineNo">1015</span>                                        strm.format(loc, ", " + fStr, A[i][j]);<a name="line.1015"></a>
-<span class="sourceLineNo">1016</span>                        }<a name="line.1016"></a>
-<span class="sourceLineNo">1017</span>                        strm.format("}");<a name="line.1017"></a>
-<span class="sourceLineNo">1018</span>                }<a name="line.1018"></a>
-<span class="sourceLineNo">1019</span>                strm.format("}");<a name="line.1019"></a>
-<span class="sourceLineNo">1020</span>                strm.flush();<a name="line.1020"></a>
+<span class="sourceLineNo">977</span>        public static void printToStream(double[][] A, PrintStream strm) {<a name="line.977"></a>
+<span class="sourceLineNo">978</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.978"></a>
+<span class="sourceLineNo">979</span>                strm.format("{");<a name="line.979"></a>
+<span class="sourceLineNo">980</span>                for (int i=0; i&lt; A.length; i++) {<a name="line.980"></a>
+<span class="sourceLineNo">981</span>                        if (i == 0)<a name="line.981"></a>
+<span class="sourceLineNo">982</span>                                strm.format("{");<a name="line.982"></a>
+<span class="sourceLineNo">983</span>                        else<a name="line.983"></a>
+<span class="sourceLineNo">984</span>                                strm.format(", \n{");<a name="line.984"></a>
+<span class="sourceLineNo">985</span>                        for (int j=0; j&lt; A[i].length; j++) {<a name="line.985"></a>
+<span class="sourceLineNo">986</span>                                if (j == 0) <a name="line.986"></a>
+<span class="sourceLineNo">987</span>                                        strm.format(loc, fStr, A[i][j]);<a name="line.987"></a>
+<span class="sourceLineNo">988</span>                                else<a name="line.988"></a>
+<span class="sourceLineNo">989</span>                                        strm.format(loc, ", " + fStr, A[i][j]);<a name="line.989"></a>
+<span class="sourceLineNo">990</span>                        }<a name="line.990"></a>
+<span class="sourceLineNo">991</span>                        strm.format("}");<a name="line.991"></a>
+<span class="sourceLineNo">992</span>                }<a name="line.992"></a>
+<span class="sourceLineNo">993</span>                strm.format("}");<a name="line.993"></a>
+<span class="sourceLineNo">994</span>                strm.flush();<a name="line.994"></a>
+<span class="sourceLineNo">995</span>        }<a name="line.995"></a>
+<span class="sourceLineNo">996</span>        <a name="line.996"></a>
+<span class="sourceLineNo">997</span>        public static String toString(float[] A) {<a name="line.997"></a>
+<span class="sourceLineNo">998</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.998"></a>
+<span class="sourceLineNo">999</span>                PrintStream strm = new PrintStream(bas);<a name="line.999"></a>
+<span class="sourceLineNo">1000</span>                printToStream(A, strm);<a name="line.1000"></a>
+<span class="sourceLineNo">1001</span>                return bas.toString();<a name="line.1001"></a>
+<span class="sourceLineNo">1002</span>        }<a name="line.1002"></a>
+<span class="sourceLineNo">1003</span>        <a name="line.1003"></a>
+<span class="sourceLineNo">1004</span>        public static void printToStream(float[] A, PrintStream strm) {<a name="line.1004"></a>
+<span class="sourceLineNo">1005</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.1005"></a>
+<span class="sourceLineNo">1006</span>                strm.format("{");<a name="line.1006"></a>
+<span class="sourceLineNo">1007</span>                for (int i = 0; i &lt; A.length; i++) {<a name="line.1007"></a>
+<span class="sourceLineNo">1008</span>                        if (i &gt; 0)<a name="line.1008"></a>
+<span class="sourceLineNo">1009</span>                                strm.format(", ");<a name="line.1009"></a>
+<span class="sourceLineNo">1010</span>                        strm.format(loc, fStr, A[i]);<a name="line.1010"></a>
+<span class="sourceLineNo">1011</span>                }<a name="line.1011"></a>
+<span class="sourceLineNo">1012</span>                strm.format("}");<a name="line.1012"></a>
+<span class="sourceLineNo">1013</span>                strm.flush();<a name="line.1013"></a>
+<span class="sourceLineNo">1014</span>        }<a name="line.1014"></a>
+<span class="sourceLineNo">1015</span><a name="line.1015"></a>
+<span class="sourceLineNo">1016</span>        public static String toString(float[][] A) {<a name="line.1016"></a>
+<span class="sourceLineNo">1017</span>                ByteArrayOutputStream bas = new ByteArrayOutputStream();<a name="line.1017"></a>
+<span class="sourceLineNo">1018</span>                PrintStream strm = new PrintStream(bas);<a name="line.1018"></a>
+<span class="sourceLineNo">1019</span>                printToStream(A, strm);<a name="line.1019"></a>
+<span class="sourceLineNo">1020</span>                return bas.toString();<a name="line.1020"></a>
 <span class="sourceLineNo">1021</span>        }<a name="line.1021"></a>
-<span class="sourceLineNo">1022</span><a name="line.1022"></a>
-<span class="sourceLineNo">1023</span>        //--------------------------------------------------------------------------<a name="line.1023"></a>
-<span class="sourceLineNo">1024</span>        <a name="line.1024"></a>
-<span class="sourceLineNo">1025</span><a name="line.1025"></a>
-<span class="sourceLineNo">1026</span>        public static void main(String[] args) {<a name="line.1026"></a>
-<span class="sourceLineNo">1027</span>                float[][] A = {<a name="line.1027"></a>
-<span class="sourceLineNo">1028</span>                                { -1, 2, 3 }, <a name="line.1028"></a>
-<span class="sourceLineNo">1029</span>                                {  4, 5, 6 }, <a name="line.1029"></a>
-<span class="sourceLineNo">1030</span>                                {  7, 8, 9 }};<a name="line.1030"></a>
-<span class="sourceLineNo">1031</span><a name="line.1031"></a>
-<span class="sourceLineNo">1032</span>                System.out.println("A = \n" + toString(A));<a name="line.1032"></a>
-<span class="sourceLineNo">1033</span>                System.out.println("A rows = " + getNumberOfRows(A));<a name="line.1033"></a>
-<span class="sourceLineNo">1034</span>                System.out.println("A columns = " + getNumberOfColumns(A));<a name="line.1034"></a>
-<span class="sourceLineNo">1035</span>                <a name="line.1035"></a>
-<span class="sourceLineNo">1036</span>                <a name="line.1036"></a>
-<span class="sourceLineNo">1037</span>                <a name="line.1037"></a>
-<span class="sourceLineNo">1038</span>                <a name="line.1038"></a>
-<span class="sourceLineNo">1039</span>                int row = 1;<a name="line.1039"></a>
-<span class="sourceLineNo">1040</span>                int column = 2;<a name="line.1040"></a>
-<span class="sourceLineNo">1041</span>                System.out.println("A[1][2] = " + A[row][column]);<a name="line.1041"></a>
+<span class="sourceLineNo">1022</span>        <a name="line.1022"></a>
+<span class="sourceLineNo">1023</span>        public static void printToStream(float[][] A, PrintStream strm) {<a name="line.1023"></a>
+<span class="sourceLineNo">1024</span>                String fStr = PrintPrecision.getFormatStringFloat();<a name="line.1024"></a>
+<span class="sourceLineNo">1025</span>                strm.format("{");<a name="line.1025"></a>
+<span class="sourceLineNo">1026</span>                for (int i=0; i&lt; A.length; i++) {<a name="line.1026"></a>
+<span class="sourceLineNo">1027</span>                        if (i == 0)<a name="line.1027"></a>
+<span class="sourceLineNo">1028</span>                                strm.format("{");<a name="line.1028"></a>
+<span class="sourceLineNo">1029</span>                        else<a name="line.1029"></a>
+<span class="sourceLineNo">1030</span>                                strm.format(", \n{");<a name="line.1030"></a>
+<span class="sourceLineNo">1031</span>                        for (int j=0; j&lt; A[i].length; j++) {<a name="line.1031"></a>
+<span class="sourceLineNo">1032</span>                                if (j == 0) <a name="line.1032"></a>
+<span class="sourceLineNo">1033</span>                                        strm.format(loc, fStr, A[i][j]);<a name="line.1033"></a>
+<span class="sourceLineNo">1034</span>                                else<a name="line.1034"></a>
+<span class="sourceLineNo">1035</span>                                        strm.format(loc, ", " + fStr, A[i][j]);<a name="line.1035"></a>
+<span class="sourceLineNo">1036</span>                        }<a name="line.1036"></a>
+<span class="sourceLineNo">1037</span>                        strm.format("}");<a name="line.1037"></a>
+<span class="sourceLineNo">1038</span>                }<a name="line.1038"></a>
+<span class="sourceLineNo">1039</span>                strm.format("}");<a name="line.1039"></a>
+<span class="sourceLineNo">1040</span>                strm.flush();<a name="line.1040"></a>
+<span class="sourceLineNo">1041</span>        }<a name="line.1041"></a>
 <span class="sourceLineNo">1042</span><a name="line.1042"></a>
-<span class="sourceLineNo">1043</span>                System.out.println("det=" + determinant3x3(A));<a name="line.1043"></a>
-<span class="sourceLineNo">1044</span>                float[][] Ai = inverse(A);<a name="line.1044"></a>
-<span class="sourceLineNo">1045</span>                toString(Ai);<a name="line.1045"></a>
-<span class="sourceLineNo">1046</span><a name="line.1046"></a>
-<span class="sourceLineNo">1047</span>                double[][] B = {<a name="line.1047"></a>
+<span class="sourceLineNo">1043</span>        //--------------------------------------------------------------------------<a name="line.1043"></a>
+<span class="sourceLineNo">1044</span>        <a name="line.1044"></a>
+<span class="sourceLineNo">1045</span><a name="line.1045"></a>
+<span class="sourceLineNo">1046</span>        public static void main(String[] args) {<a name="line.1046"></a>
+<span class="sourceLineNo">1047</span>                float[][] A = {<a name="line.1047"></a>
 <span class="sourceLineNo">1048</span>                                { -1, 2, 3 }, <a name="line.1048"></a>
-<span class="sourceLineNo">1049</span>                                { 4, 5, 6 }};<a name="line.1049"></a>
-<span class="sourceLineNo">1050</span>                System.out.println("B = \n" + toString(B));<a name="line.1050"></a>
-<span class="sourceLineNo">1051</span>                System.out.println("B rows = " + getNumberOfRows(B));<a name="line.1051"></a>
-<span class="sourceLineNo">1052</span>                System.out.println("B columns = " + getNumberOfColumns(B));<a name="line.1052"></a>
-<span class="sourceLineNo">1053</span>                <a name="line.1053"></a>
-<span class="sourceLineNo">1054</span>                double[] rowSum = sumRows(B);<a name="line.1054"></a>
-<span class="sourceLineNo">1055</span>                System.out.println("B sum of rows = " + toString(rowSum));<a name="line.1055"></a>
-<span class="sourceLineNo">1056</span>                double[] colSum = sumColumns(B);<a name="line.1056"></a>
-<span class="sourceLineNo">1057</span>                System.out.println("B sum of cols = " + toString(colSum));<a name="line.1057"></a>
-<span class="sourceLineNo">1058</span>                <a name="line.1058"></a>
-<span class="sourceLineNo">1059</span>                PrintPrecision.set(5);<a name="line.1059"></a>
-<span class="sourceLineNo">1060</span><a name="line.1060"></a>
-<span class="sourceLineNo">1061</span>                double[][] C = new double[2][3];<a name="line.1061"></a>
-<span class="sourceLineNo">1062</span>                System.out.println("C rows = " + getNumberOfRows(C));<a name="line.1062"></a>
-<span class="sourceLineNo">1063</span>                System.out.println("C columns = " + getNumberOfColumns(C));<a name="line.1063"></a>
-<span class="sourceLineNo">1064</span><a name="line.1064"></a>
-<span class="sourceLineNo">1065</span>                RealMatrix Ba = MatrixUtils.createRealMatrix(B);<a name="line.1065"></a>
-<span class="sourceLineNo">1066</span>                System.out.println("Ba = " + Ba.toString());<a name="line.1066"></a>
-<span class="sourceLineNo">1067</span>                <a name="line.1067"></a>
-<span class="sourceLineNo">1068</span>                float[] v1 = {1,2,3};<a name="line.1068"></a>
-<span class="sourceLineNo">1069</span>                float[] v2 = {4,5,6,7};<a name="line.1069"></a>
-<span class="sourceLineNo">1070</span>                float[] v3 = {8};<a name="line.1070"></a>
-<span class="sourceLineNo">1071</span>                float[] v123 = concatenate(v1, v2, v3);<a name="line.1071"></a>
-<span class="sourceLineNo">1072</span>                System.out.println("v123 = \n" + toString(v123));<a name="line.1072"></a>
-<span class="sourceLineNo">1073</span>                <a name="line.1073"></a>
-<span class="sourceLineNo">1074</span>                System.out.println("mind1 = " + Matrix.min(new double[] {-20,30,60,-40, 0}));<a name="line.1074"></a>
-<span class="sourceLineNo">1075</span>                System.out.println("maxd2 = " + Matrix.max(new double[] {-20,30,60,-40, 0}));<a name="line.1075"></a>
-<span class="sourceLineNo">1076</span>                System.out.println("minf1 = " + Matrix.min(new float[] {-20,30,60,-40, 0}));<a name="line.1076"></a>
-<span class="sourceLineNo">1077</span>                System.out.println("maxf2 = " + Matrix.max(new float[] {-20,30,60,-40, 0}));<a name="line.1077"></a>
-<span class="sourceLineNo">1078</span>        }<a name="line.1078"></a>
-<span class="sourceLineNo">1079</span>}<a name="line.1079"></a>
+<span class="sourceLineNo">1049</span>                                {  4, 5, 6 }, <a name="line.1049"></a>
+<span class="sourceLineNo">1050</span>                                {  7, 8, 9 }};<a name="line.1050"></a>
+<span class="sourceLineNo">1051</span><a name="line.1051"></a>
+<span class="sourceLineNo">1052</span>                System.out.println("A = \n" + toString(A));<a name="line.1052"></a>
+<span class="sourceLineNo">1053</span>                System.out.println("A rows = " + getNumberOfRows(A));<a name="line.1053"></a>
+<span class="sourceLineNo">1054</span>                System.out.println("A columns = " + getNumberOfColumns(A));<a name="line.1054"></a>
+<span class="sourceLineNo">1055</span>                <a name="line.1055"></a>
+<span class="sourceLineNo">1056</span>                int row = 1;<a name="line.1056"></a>
+<span class="sourceLineNo">1057</span>                int column = 2;<a name="line.1057"></a>
+<span class="sourceLineNo">1058</span>                System.out.println("A[1][2] = " + A[row][column]);<a name="line.1058"></a>
+<span class="sourceLineNo">1059</span><a name="line.1059"></a>
+<span class="sourceLineNo">1060</span>                System.out.println("det=" + determinant3x3(A));<a name="line.1060"></a>
+<span class="sourceLineNo">1061</span>                float[][] Ai = inverse(A);<a name="line.1061"></a>
+<span class="sourceLineNo">1062</span>                toString(Ai);<a name="line.1062"></a>
+<span class="sourceLineNo">1063</span><a name="line.1063"></a>
+<span class="sourceLineNo">1064</span>                double[][] B = {<a name="line.1064"></a>
+<span class="sourceLineNo">1065</span>                                { -1, 2, 3 }, <a name="line.1065"></a>
+<span class="sourceLineNo">1066</span>                                { 4, 5, 6 }};<a name="line.1066"></a>
+<span class="sourceLineNo">1067</span>                System.out.println("B = \n" + toString(B));<a name="line.1067"></a>
+<span class="sourceLineNo">1068</span>                System.out.println("B rows = " + getNumberOfRows(B));<a name="line.1068"></a>
+<span class="sourceLineNo">1069</span>                System.out.println("B columns = " + getNumberOfColumns(B));<a name="line.1069"></a>
+<span class="sourceLineNo">1070</span>                <a name="line.1070"></a>
+<span class="sourceLineNo">1071</span>                double[] rowSum = sumRows(B);<a name="line.1071"></a>
+<span class="sourceLineNo">1072</span>                System.out.println("B sum of rows = " + toString(rowSum));<a name="line.1072"></a>
+<span class="sourceLineNo">1073</span>                double[] colSum = sumColumns(B);<a name="line.1073"></a>
+<span class="sourceLineNo">1074</span>                System.out.println("B sum of cols = " + toString(colSum));<a name="line.1074"></a>
+<span class="sourceLineNo">1075</span>                <a name="line.1075"></a>
+<span class="sourceLineNo">1076</span>                PrintPrecision.set(5);<a name="line.1076"></a>
+<span class="sourceLineNo">1077</span><a name="line.1077"></a>
+<span class="sourceLineNo">1078</span>                double[][] C = new double[2][3];<a name="line.1078"></a>
+<span class="sourceLineNo">1079</span>                System.out.println("C rows = " + getNumberOfRows(C));<a name="line.1079"></a>
+<span class="sourceLineNo">1080</span>                System.out.println("C columns = " + getNumberOfColumns(C));<a name="line.1080"></a>
+<span class="sourceLineNo">1081</span><a name="line.1081"></a>
+<span class="sourceLineNo">1082</span>                RealMatrix Ba = MatrixUtils.createRealMatrix(B);<a name="line.1082"></a>
+<span class="sourceLineNo">1083</span>                System.out.println("Ba = " + Ba.toString());<a name="line.1083"></a>
+<span class="sourceLineNo">1084</span>                <a name="line.1084"></a>
+<span class="sourceLineNo">1085</span>                float[] v1 = {1,2,3};<a name="line.1085"></a>
+<span class="sourceLineNo">1086</span>                float[] v2 = {4,5,6,7};<a name="line.1086"></a>
+<span class="sourceLineNo">1087</span>                float[] v3 = {8};<a name="line.1087"></a>
+<span class="sourceLineNo">1088</span>                float[] v123 = concatenate(v1, v2, v3);<a name="line.1088"></a>
+<span class="sourceLineNo">1089</span>                System.out.println("v123 = \n" + toString(v123));<a name="line.1089"></a>
+<span class="sourceLineNo">1090</span>                <a name="line.1090"></a>
+<span class="sourceLineNo">1091</span>                System.out.println("mind1 = " + Matrix.min(new double[] {-20,30,60,-40, 0}));<a name="line.1091"></a>
+<span class="sourceLineNo">1092</span>                System.out.println("maxd2 = " + Matrix.max(new double[] {-20,30,60,-40, 0}));<a name="line.1092"></a>
+<span class="sourceLineNo">1093</span>                System.out.println("minf1 = " + Matrix.min(new float[] {-20,30,60,-40, 0}));<a name="line.1093"></a>
+<span class="sourceLineNo">1094</span>                System.out.println("maxf2 = " + Matrix.max(new float[] {-20,30,60,-40, 0}));<a name="line.1094"></a>
+<span class="sourceLineNo">1095</span>        }<a name="line.1095"></a>
+<span class="sourceLineNo">1096</span>}<a name="line.1096"></a>
 
 
 
